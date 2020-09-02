@@ -3,48 +3,6 @@
   .panel
     .left
       .show
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试测试测试测试测试测试测试测试测试测试测试
-        h2 测试结束
     .right
       .title 模块选择
       .module-box
@@ -61,6 +19,7 @@
         .text-input-box
           input(type="text" o-value="this.data.bgUrl")
       .title 模块设置
+      
       .button(o-tap="output") 生成
 </template>
 
@@ -72,32 +31,36 @@
       module: {
         jianju: {
           template: "<div class='jianju' style='[[0]]'></div>",
+          styleData: [{
+            "height": "30px"
+          }],
         },
         toubu: {
           template: "<h1 style='[[0]]'>{{0}}</h1><h2 style='[[1]]'>{{1}}</h2>",
-          styleData: {},
+          styleData: [
+            {
+              "color": '#ffcc00',
+              "font-size": '52px',
+              "line-height": '52px',
+              "text-align": "center",
+            },
+            {
+              "color": '#ffffff',
+              "font-size": '30px',
+              "line-height": '40px',
+              "text-align": "center",
+            }
+          ],
           edit: [
             {
               type: 'text',
               value: '《学习有方》',
-              name: '顶部大标题',
-              styleData: {
-                "color": '#ffcc00',
-                "font-size": '52px',
-                "line-height": '52px',
-                "text-align": "center",
-              },
+              name: '顶部大标题'
             },
             {
               type: 'text',
               value: '一图领会<br>习近平高质量城市建设新思路',
-              name: '副标题',
-              styleData: {
-                "color": '#ffffff',
-                "font-size": '30px',
-                "line-height": '40px',
-                "text-align": "center",
-              }
+              name: '副标题'
             }
           ]
         }
@@ -126,29 +89,37 @@
         }
       });
     },
+    // 生成样式字符串
+    creatStyleStr: function (ele) {
+      console.log(ele['styleData'])
+      for (let index = 0; index < ele['styleData'].length; index++) {
+        let styleData = ''
+        const styleItem = ele['styleData'][index];
+        for (const key in styleItem) {
+          if (styleItem.hasOwnProperty(key)) {
+            const styleValue = styleItem[key];
+            styleData += `${key}: ${styleValue};`
+          }
+        }
+        console.log(styleData)
+        ele.template = ele.template.replace(`[[${index}]]`, styleData)
+      }
+      
+      return ele
+    },
     selectModule: function (name) {
-      const item = this.data.module[name]
-      console.log(item['edit'])
+      let item = this.data.module[name]
+      // 替换样式
+      item = this.creatStyleStr(item)
       let template = item['template']
       // 模板插值
       for (const ind in item['edit']) {
         if (item['edit'].hasOwnProperty(ind)) {
           const element = item['edit'][ind];
-          // 生成样式字符串
-          let styleData = ''
-          for (const key in element['styleData']) {
-            if (element['styleData'].hasOwnProperty(key)) {
-              const styleValue = element['styleData'][key];
-              styleData += `${key}: ${styleValue};`
-            }
-          }
-          console.log(styleData)
           template = template.replace(`{{${ind}}}`, element.value)
-          // 替换样式
-          template = template.replace(`[[${ind}]]`, styleData)
         }
       }
-      this.query('.show').innerHTML = template
+      this.query('.show').innerHTML += template
     },
     saveFile: function (data, filename) {
       var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');

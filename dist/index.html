@@ -27,7 +27,7 @@
   <body>
     
     <!-- 页面[page]-->
-    <div class="home page" template="page" style="display: block;"><div class="panel"><div class="left"><div class="show"><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试测试测试测试测试测试测试测试测试测试测试</h2><h2>测试结束</h2></div></div><div class="right"><div class="title">模块选择</div><div class="module-box"><div class="module-item" o-tap="selectModule('jianju')">间距</div><div class="module-item" o-tap="selectModule('toubu')">头部</div></div><div class="title">背景设置</div><div class="input-box"><span>背景颜色</span><div class="color-input-box"><input class="color-select" type="color" o-value="this.data.color"><input class="color-text" type="text" o-value="this.data.color"></div></div><div class="input-box"><span>背景图片</span><div class="text-input-box"><input type="text" o-value="this.data.bgUrl"></div></div><div class="title">模块设置</div><div class="button" o-tap="output">生成</div></div></div></div>
+    <div class="home page" template="page" style="display: block;"><div class="panel"><div class="left"><div class="show"></div></div><div class="right"><div class="title">模块选择</div><div class="module-box"><div class="module-item" o-tap="selectModule('jianju')">间距</div><div class="module-item" o-tap="selectModule('toubu')">头部</div></div><div class="title">背景设置</div><div class="input-box"><span>背景颜色</span><div class="color-input-box"><input class="color-select" type="color" o-value="this.data.color"><input class="color-text" type="text" o-value="this.data.color"></div></div><div class="input-box"><span>背景图片</span><div class="text-input-box"><input type="text" o-value="this.data.bgUrl"></div></div><div class="title">模块设置</div><div class="button" o-tap="output">生成</div></div></div></div>
     
 
     <script src="./static/js/html2canvas.min.js" type="text/javascript"  charset="UTF-8"></script>
@@ -41,29 +41,33 @@ owo.script = {
       "color": "#123b8b",
       "bgUrl": "./static/resource/1.jpg",
       "module": {
+        "jianju": {
+          "template": "<div class='jianju' style='[[0]]'></div>",
+          "styleData": [{
+            "height": "30px"
+          }]
+        },
         "toubu": {
           "template": "<h1 style='[[0]]'>{{0}}</h1><h2 style='[[1]]'>{{1}}</h2>",
-          "styleData": "",
+          "styleData": [{
+            "color": "#ffcc00",
+            "font-size": "52px",
+            "line-height": "52px",
+            "text-align": "center"
+          }, {
+            "color": "#ffffff",
+            "font-size": "30px",
+            "line-height": "40px",
+            "text-align": "center"
+          }],
           "edit": [{
             "type": "text",
             "value": "《学习有方》",
-            "name": "顶部大标题",
-            "styleData": {
-              "color": "#ffcc00",
-              "font-size": "52px",
-              "line-height": "52px",
-              "text-align": "center"
-            }
+            "name": "顶部大标题"
           }, {
             "type": "text",
             "value": "一图领会<br>习近平高质量城市建设新思路",
-            "name": "副标题",
-            "styleData": {
-              "color": "#ffffff",
-              "font-size": "30px",
-              "line-height": "40px",
-              "text-align": "center"
-            }
+            "name": "副标题"
           }]
         }
       }
@@ -99,32 +103,40 @@ owo.script = {
         }
       });
     },
+    "creatStyleStr": function creatStyleStr(ele) {
+      console.log(ele['styleData']);
+
+      for (var index = 0; index < ele['styleData'].length; index++) {
+        var styleData = '';
+        var styleItem = ele['styleData'][index];
+
+        for (var key in styleItem) {
+          if (styleItem.hasOwnProperty(key)) {
+            var styleValue = styleItem[key];
+            styleData += key + ": " + styleValue + ";";
+          }
+        }
+
+        console.log(styleData);
+        ele.template = ele.template.replace("[[" + index + "]]", styleData);
+      }
+
+      return ele;
+    },
     "selectModule": function selectModule(name) {
-      var item = this.data.module[name];
-      console.log(item['edit']);
+      var item = this.data.module[name]; // 替换样式
+
+      item = this.creatStyleStr(item);
       var template = item['template']; // 模板插值
 
       for (var ind in item['edit']) {
         if (item['edit'].hasOwnProperty(ind)) {
-          var element = item['edit'][ind]; // 生成样式字符串
-
-          var styleData = '';
-
-          for (var key in element['styleData']) {
-            if (element['styleData'].hasOwnProperty(key)) {
-              var styleValue = element['styleData'][key];
-              styleData += key + ": " + styleValue + ";";
-            }
-          }
-
-          console.log(styleData);
-          template = template.replace("{{" + ind + "}}", element.value); // 替换样式
-
-          template = template.replace("[[" + ind + "]]", styleData);
+          var element = item['edit'][ind];
+          template = template.replace("{{" + ind + "}}", element.value);
         }
       }
 
-      this.query('.show').innerHTML = template;
+      this.query('.show').innerHTML += template;
     },
     "saveFile": function saveFile(data, filename) {
       var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
