@@ -1,0 +1,146 @@
+body, html, .page, .page-box {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  min-height: 100%;
+}
+
+.owo-animation {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+.owo-animated {
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+}
+.owo-animation-forward {
+  z-index: 99;
+}
+
+img {
+  border: none;
+}
+
+[route-active="false"] {
+  display: none;
+}
+
+/* 清除浮动 */
+.clear:after {
+  content: "";
+  height: 0;
+  line-height: 0;
+  display: block;
+  visibility: hidden;
+  clear: both;
+  zoom: 1;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+.home {
+  width: 100%;
+  height: 100%;
+}
+
+.panel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.left {
+  height: 100%;
+  overflow: auto;
+  width: calc(100% - 300px);
+}
+
+.right {
+  width: 300px;
+  height: 100%;
+  position: relative;
+  background-color: white;
+}
+
+.show {
+  width: 750px;
+  margin: 0 auto;
+  background-color: white;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.button {
+  background-color: #009fe9;
+  color: white;
+  text-align: center;
+  line-height: 45px;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 45px;
+  cursor: pointer;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.color-input-box {
+  display: flex;
+  width: 95px;
+  border: 1px solid #ccc;
+}
+
+.color-input-box .color-select {
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 25px;
+  height: 25px;
+}
+
+.color-input-box .color-text {
+  width: 60px;
+  border: none;
+  background-color: gainsboro;
+  padding: 0 5px;
+  outline: none;
+}
+
+.text-input-box input {
+  height: 27px;
+  padding: 0 10px;
+  width: 140px;
+  background-color: gainsboro;
+  border: none;
+}
+
+.title {
+  background-color: moccasin;
+  line-height: 30px;
+  padding: 0 5px;
+}
+

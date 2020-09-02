@@ -1,0 +1,242 @@
+<template lang="pug">
+.home
+  .panel
+    .left
+      .show
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试测试测试测试测试测试测试测试测试测试测试
+        h2 测试结束
+    .right
+      .title 模块选择
+      .module-box
+        .module-item(o-tap="selectModule('jianju')") 间距
+        .module-item(o-tap="selectModule('toubu')") 头部
+      .title 背景设置
+      .input-box
+        span 背景颜色
+        .color-input-box
+          input.color-select(type="color" o-value="this.data.color")
+          input.color-text(type="text" o-value="this.data.color")
+      .input-box
+        span 背景图片
+        .text-input-box
+          input(type="text" o-value="this.data.bgUrl")
+      .title 模块设置
+      .button(o-tap="output") 生成
+</template>
+
+<script>
+  module.exports = {
+    data: {
+      color: '#123b8b',
+      bgUrl: '@|1.jpg|',
+      module: {
+        toubu: {
+          template: "<h1 style='[[0]]'>{{0}}</h1><h2 style='[[1]]'>{{1}}</h2>",
+          styleData: "",
+          edit: [
+            {
+              type: 'text',
+              value: '《学习有方》',
+              name: '顶部大标题',
+              styleData: {
+                "color": '#ffcc00',
+                "font-size": '52px',
+                "line-height": '52px',
+                "text-align": "center",
+              },
+            },
+            {
+              type: 'text',
+              value: '一图领会<br>习近平高质量城市建设新思路',
+              name: '副标题',
+              styleData: {
+                "color": '#ffffff',
+                "font-size": '30px',
+                "line-height": '40px',
+                "text-align": "center",
+              }
+            }
+          ]
+        }
+      }
+    },
+    created: function () {
+      console.log(this.query('.color-select').value)
+      setTimeout(() => {
+        this.make()
+      }, 100);
+    },
+    make: function () {
+      // 背景颜色
+      const showBox = this.query('.show')
+      showBox.style.backgroundColor = this.data.color
+      showBox.style.backgroundImage = `url(${this.data.bgUrl})`
+    },
+    output: function () {
+      html2canvas(this.query('.show'), {"allowTaint": false}).then(canvas => {
+        var imgData = canvas.toDataURL('image/octet-stream');
+        if (canvas.msToBlob) {     // IE 9+浏览器
+          var blob = canvas.msToBlob();
+          window.navigator.msSaveBlob(blob, 'test.png');
+        } else {
+          this.saveFile(imgData, 'test.png');
+        }
+      });
+    },
+    selectModule: function (name) {
+      const item = this.data.module[name]
+      console.log(item['edit'])
+      let template = item['template']
+      // 模板插值
+      for (const ind in item['edit']) {
+        if (item['edit'].hasOwnProperty(ind)) {
+          const element = item['edit'][ind];
+          // 生成样式字符串
+          let styleData = ''
+          for (const key in element['styleData']) {
+            if (element['styleData'].hasOwnProperty(key)) {
+              const styleValue = element['styleData'][key];
+              styleData += `${key}: ${styleValue};`
+            }
+          }
+          console.log(styleData)
+          template = template.replace(`{{${ind}}}`, element.value)
+          // 替换样式
+          template = template.replace(`[[${ind}]]`, styleData)
+        }
+      }
+      this.query('.show').innerHTML = template
+    },
+    saveFile: function (data, filename) {
+      var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+      save_link.href = data;
+      save_link.download = filename;
+      var event = document.createEvent('MouseEvents');
+      event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+      save_link.dispatchEvent(event);
+    }
+  }
+</script>
+
+
+<style lang="less">
+.home {
+  width: 100%;
+  height: 100%;
+}
+.panel {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+.left {
+  height: 100%;
+  overflow: auto;
+  width: calc(100% - 300px);
+}
+.right {
+  width: 300px;
+  height: 100%;
+  position: relative;
+  background-color: white;
+}
+.show {
+  width: 750px;
+  margin: 0 auto;
+  background-color: white;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+.button {
+  background-color: #009fe9;
+  color: white;
+  text-align: center;
+  line-height: 45px;
+  font-size: 20px;
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+  height: 45px;
+  cursor: pointer;
+}
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  align-items: center;
+  padding: 0 20px;
+}
+.color-input-box {
+  display: flex;
+  width: 95px;
+  border: 1px solid #ccc;
+  .color-select {
+    border: none;
+    padding: 0;
+    margin: 0;
+    width: 25px;
+    height: 25px;
+  }
+  .color-text {
+    width: 60px;
+    border: none;
+    background-color: gainsboro;
+    padding: 0 5px;
+    outline: none;
+  }
+}
+.text-input-box {
+  input {
+    height: 27px;
+    padding: 0 10px;
+    width: 140px;
+    background-color: gainsboro;
+    border: none;
+  }
+}
+.title {
+  background-color: moccasin;
+  line-height: 30px;
+  padding: 0 5px;
+}
+</style>
