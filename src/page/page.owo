@@ -70,9 +70,12 @@
       color: '#123b8b',
       bgUrl: '@|1.jpg|',
       module: {
+        jianju: {
+          template: "<div class='jianju' style='[[0]]'></div>",
+        },
         toubu: {
           template: "<h1 style='[[0]]'>{{0}}</h1><h2 style='[[1]]'>{{1}}</h2>",
-          styleData: "",
+          styleData: {},
           edit: [
             {
               type: 'text',
