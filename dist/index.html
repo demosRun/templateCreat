@@ -27,7 +27,7 @@
   <body>
     
     <!-- 页面[page]-->
-    <div class="home page" template="page" style="display: block;"><div class="panel"><div class="left"><div class="show"></div></div><div class="right"><div class="title">模块选择</div><div class="module-box"><div class="module-item" o-tap="selectModule('jianju')">间距</div><div class="module-item" o-tap="selectModule('toubu')">头部</div></div><div class="title">背景设置</div><div class="input-box"><span>背景颜色</span><div class="color-input-box"><input class="color-select" type="color" o-value="this.data.color"><input class="color-text" type="text" o-value="this.data.color"></div></div><div class="input-box"><span>背景图片</span><div class="text-input-box"><input type="text" o-value="this.data.bgUrl"></div></div><div class="title">模块设置</div><div class="button" o-tap="output">生成</div></div></div></div>
+    <div class="home page" template="page" style="display: block;"><div class="panel"><div class="left"><div class="show"></div></div><div class="right"><div class="title">模块选择</div><div class="module-box"><div class="module-item" o-tap="selectModule('jianju')">间距</div><div class="module-item" o-tap="selectModule('toubu')">头部</div></div><div class="title">背景设置</div><div class="input-box"><span>背景颜色</span><div class="color-input-box"><input class="color-select" type="color" o-value="this.data.color"><input class="color-text" type="text" o-value="this.data.color"></div></div><div class="input-box"><span>背景图片</span><div class="text-input-box"><input type="text" o-value="this.data.bgUrl"></div></div><div class="title">模块设置</div><texteara id="styleEdit" value="" o-change="changeStyle"></texteara><div class="button" o-tap="output">生成</div></div></div></div>
     
 
     <script src="./static/js/html2canvas.min.js" type="text/javascript"  charset="UTF-8"></script>
@@ -40,6 +40,7 @@ owo.script = {
     "data": {
       "color": "#123b8b",
       "bgUrl": "./static/resource/1.jpg",
+      "showList": [],
       "module": {
         "jianju": {
           "template": "<div class='jianju' style='[[0]]'></div>",
@@ -48,7 +49,7 @@ owo.script = {
           }]
         },
         "toubu": {
-          "template": "<h1 style='[[0]]'>{{0}}</h1><h2 style='[[1]]'>{{1}}</h2>",
+          "template": "<h1 class='tem' style='[[0]]'>{{0}}</h1><h2 class='tem' style='[[1]]'>{{1}}</h2>",
           "styleData": [{
             "color": "#ffcc00",
             "font-size": "52px",
@@ -104,8 +105,7 @@ owo.script = {
       });
     },
     "creatStyleStr": function creatStyleStr(ele) {
-      console.log(ele['styleData']);
-
+      // console.log(ele['styleData'])
       for (var index = 0; index < ele['styleData'].length; index++) {
         var styleData = '';
         var styleItem = ele['styleData'][index];
@@ -115,28 +115,43 @@ owo.script = {
             var styleValue = styleItem[key];
             styleData += key + ": " + styleValue + ";";
           }
-        }
+        } // console.log(styleData)
 
-        console.log(styleData);
+
         ele.template = ele.template.replace("[[" + index + "]]", styleData);
       }
 
       return ele;
     },
     "selectModule": function selectModule(name) {
-      var item = this.data.module[name]; // 替换样式
+      var item = this.data.module[name];
+      this.data.showList.push(item);
+      this.outPutShow();
+    },
+    "outPutShow": function outPutShow() {
+      var _this3 = this;
 
-      item = this.creatStyleStr(item);
-      var template = item['template']; // 模板插值
+      var newShowHTML = '';
+      this.data.showList.forEach(function (item) {
+        // 替换样式
+        item = _this3.creatStyleStr(item);
+        var template = item['template']; // 模板插值
 
-      for (var ind in item['edit']) {
-        if (item['edit'].hasOwnProperty(ind)) {
-          var element = item['edit'][ind];
-          template = template.replace("{{" + ind + "}}", element.value);
+        for (var ind in item['edit']) {
+          if (item['edit'].hasOwnProperty(ind)) {
+            var element = item['edit'][ind];
+            template = template.replace("{{" + ind + "}}", element.value);
+          }
         }
-      }
 
-      this.query('.show').innerHTML += template;
+        newShowHTML += template;
+      });
+      this.query('.show').innerHTML = newShowHTML;
+      setTimeout(function () {
+        _this3.queryAll('.show .tem').forEach(function (element) {
+          element.onclick = owo.script.page.changeStyle;
+        });
+      }, 100);
     },
     "saveFile": function saveFile(data, filename) {
       var save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
@@ -145,6 +160,9 @@ owo.script = {
       var event = document.createEvent('MouseEvents');
       event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
       save_link.dispatchEvent(event);
+    },
+    "changeStyle": function changeStyle() {
+      console.log(this, this.style);
     }
   }
 };

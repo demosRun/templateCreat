@@ -144,3 +144,17 @@ li {
   padding: 0 5px;
 }
 
+#styleEdit {
+  width: 100%;
+  height: 400px;
+  display: block;
+}
+
+.tem {
+  cursor: pointer;
+}
+
+.tem:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
