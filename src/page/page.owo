@@ -8,6 +8,8 @@
       .module-box
         .module-item(o-tap="selectModule('jianju')") 间距
         .module-item(o-tap="selectModule('toubu')") 头部
+        .module-item(o-tap="selectModule('bianzhean')") 编者按
+        .module-item(o-tap="selectModule('biaoti')") 标题
       .title 背景设置
       .input-box
         span 背景颜色
@@ -58,18 +60,37 @@
               "text-align": "center",
             }
           ],
-          edit: [
-            {
-              type: 'text',
-              value: '《学习有方》',
-              name: '顶部大标题'
-            },
-            {
-              type: 'text',
-              value: '一图领会<br>习近平高质量城市建设新思路',
-              name: '副标题'
-            }
-          ]
+          edit: ['《学习有方》', '一图领会<br>习近平高质量城市建设新思路']
+        },
+        bianzhean: {
+          template: "<div style='background-color: white;width: 705px;margin: 0 auto;border-radius: 20px;padding: 10px 0;'><div class='editer-title' style='width: 576px;height: 48px;display: block;margin: 30px auto;background-image: url(http://cunchu.site/people/templateCreat/module/editer-bg.png);'></div><p [[0]]>{{0}}</p></div>",
+          styleData: [{
+            "font-size": "28px",
+            "line-height": "1.6",
+            "width": "660px",
+            "display": "block",
+            "margin": "0 auto",
+            "color": "#003f8c",
+            "margin-bottom": "20px",
+            "text-indent": "2em",
+          }],
+          edit: ['近日，中共中央总书记、国家主席、中央军委主席习近平在合肥主持召开扎实推进长三角一体化发展座谈会并发表重要讲话，强调提升长三角城市发展质量。<br>&nbsp;&nbsp;城市是人类活动的重要区域，城市建设和发展关乎人民群众的生活质量。对于城市建设，习近平曾多次强调，必须贯彻以人民为中心的发展理念。让人民满意的高质量城市怎么建？一起来听习近平对城市建设、发展、治理的重要论述。']
+        },
+        biaoti: {
+          template: '<div [[0]]>{{0}}</div>',
+          styleData: [{
+            "background-image": 'url(http://cunchu.site/people/templateCreat/module/title-bg.png)',
+            "width": '509px',
+            "height": '108px',
+            "font-size": '40px',
+            "line-height": '97px',
+            "padding-left": '30px',
+            "color": '#0270e9',
+            "font-weight": 'bold',
+            "letter-spacing": '4px',
+            "font-family": 'Microsoft YaHei',
+          }],
+          edit: ['三大成果']
         }
       }
     },
@@ -131,7 +152,7 @@
         for (const ind in item['edit']) {
           if (item['edit'].hasOwnProperty(ind)) {
             const element = item['edit'][ind];
-            template = template.replace(`{{${ind}}}`, element.value)
+            template = template.replace(`{{${ind}}}`, element)
           }
         }
         newShowHTML += template 
