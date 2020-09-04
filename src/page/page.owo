@@ -19,8 +19,12 @@
         .text-input-box
           input(type="text" o-value="this.data.bgUrl")
       .title 模块设置
-      texteara#styleEdit(value="" o-change="changeStyle")
-      .button(o-tap="output") 生成
+      textarea#styleEdit(value="")
+      .title 内容设置
+      textarea#htmlEdit(value="")
+      .button-box
+        .button(o-tap="reMake") 生成
+        .button(o-tap="output") 导出图片
 </template>
 
 <script>
@@ -28,27 +32,29 @@
     data: {
       color: '#123b8b',
       bgUrl: '@|1.jpg|',
+      activeIndex1: 0,
+      activeIndex2: 0,
       showList: [],
       module: {
         jianju: {
-          template: "<div class='jianju' style='[[0]]'></div>",
+          template: "<div [[0]]></div>",
           styleData: [{
-            "height": "30px"
+            "height": "40px"
           }],
         },
         toubu: {
-          template: "<h1 class='tem' style='[[0]]'>{{0}}</h1><h2 class='tem' style='[[1]]'>{{1}}</h2>",
+          template: "<h1 [[0]]>{{0}}</h1><h2 [[1]]>{{1}}</h2>",
           styleData: [
             {
               "color": '#ffcc00',
-              "font-size": '52px',
-              "line-height": '52px',
+              "font-size": '44px',
+              "line-height": '90px',
               "text-align": "center",
             },
             {
               "color": '#ffffff',
-              "font-size": '30px',
-              "line-height": '40px',
+              "font-size": '28px',
+              "line-height": '50px',
               "text-align": "center",
             }
           ],
@@ -91,8 +97,8 @@
       });
     },
     // 生成样式字符串
-    creatStyleStr: function (ele) {
-      // console.log(ele['styleData'])
+    creatStyleStr: function (ele, key) {
+      ele.showHTML = ele.template
       for (let index = 0; index < ele['styleData'].length; index++) {
         let styleData = ''
         const styleItem = ele['styleData'][index];
@@ -103,9 +109,8 @@
           }
         }
         // console.log(styleData)
-        ele.template = ele.template.replace(`[[${index}]]`, styleData)
+        ele.showHTML = ele.showHTML.replace(`[[${index}]]`, `class="tem" key="${key}" ind="${index}" style="${styleData}"`)
       }
-      
       return ele
     },
     selectModule: function (name) {
@@ -116,10 +121,12 @@
     },
     outPutShow: function () {
       let newShowHTML = ''
-      this.data.showList.forEach(item => {
+      for (let index = 0; index < this.data.showList.length; index++) {
+        const item = this.data.showList[index];
         // 替换样式
-        item = this.creatStyleStr(item)
-        let template = item['template']
+        item = this.creatStyleStr(item, index)
+        // console.log(item)
+        let template = item['showHTML']
         // 模板插值
         for (const ind in item['edit']) {
           if (item['edit'].hasOwnProperty(ind)) {
@@ -127,8 +134,9 @@
             template = template.replace(`{{${ind}}}`, element.value)
           }
         }
-        newShowHTML += template
-      });
+        newShowHTML += template 
+      }
+      
       this.query('.show').innerHTML = newShowHTML
       setTimeout(() => {
         this.queryAll('.show .tem').forEach(element => {
@@ -145,7 +153,22 @@
       save_link.dispatchEvent(event);
     },
     changeStyle: function () {
-      console.log(this, this.style)
+      const index1 = parseInt(this.getAttribute('key'))
+      const index2 = parseInt(this.getAttribute('ind'))
+      owo.script.page.data.activeIndex1 = index1
+      owo.script.page.data.activeIndex2 = index2
+      const styleData = owo.script.page.data.showList[index1].styleData[index2]
+      console.log(styleData)
+      owo.query('#styleEdit')[0].innerText = JSON.stringify(styleData)
+      owo.query('#htmlEdit')[0].innerText = JSON.stringify(owo.script.page.data.showList[index1].edit)
+    },
+    reMake: function () {
+      const newStyleData = owo.query('#styleEdit')[0].value
+      const newHtmlData = owo.query('#htmlEdit')[0].value
+      owo.script.page.data.showList[this.data.activeIndex1].styleData[this.data.activeIndex2] = JSON.parse(newStyleData)
+      owo.script.page.data.showList[this.data.activeIndex1].edit = JSON.parse(newHtmlData)
+      // console.log(owo.script.page.data.showList)
+      this.outPutShow()
     }
   }
 </script>
@@ -171,6 +194,13 @@
   height: 100%;
   position: relative;
   background-color: white;
+  textarea {
+    background-color: gainsboro;
+    padding: 10px;
+    width: calc(100% - 20px);
+    height: 300px;
+    display: block;
+  }
 }
 .show {
   width: 750px;
@@ -179,15 +209,18 @@
   background-size: 100% auto;
   background-repeat: no-repeat;
 }
+.button-box {
+  position: absolute;
+  bottom: 0px;
+  width: 100%;
+}
 .button {
   background-color: #009fe9;
   color: white;
   text-align: center;
   line-height: 45px;
   font-size: 20px;
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
+  
   height: 45px;
   cursor: pointer;
 }
@@ -231,11 +264,7 @@
   line-height: 30px;
   padding: 0 5px;
 }
-#styleEdit {
-  width: 100%;
-  height: 400px;
-  display: block;
-}
+
 .tem {
   cursor: pointer;
 }
