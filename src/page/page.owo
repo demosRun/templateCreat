@@ -107,7 +107,7 @@
           template: '<div style="background-image: url(@|card-bg.jpg|);font-size: 22px;line-height: 60px;height: 60px;overflow: hidden;width: 94%;margin: 0 auto;color: #222;"><div [[0]]>{{0}}</div></div>',
           styleData: [`
             width: 575px;
-            background-image: url(@|doit.jpg|);
+            background-image: url(@|doit.png|);
             background-repeat: no-repeat;
             background-position: 30px center;
             padding: 0 65px;
