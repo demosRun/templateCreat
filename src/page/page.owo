@@ -62,7 +62,7 @@
         },
         bianzhean: {
           name: "编者按",
-          template: "<div style='background-color: white;width: 705px;margin: 0 auto;border-radius: 20px;padding: 10px 0;'><div class='editer-title' style='width: 576px;height: 48px;display: block;margin: 30px auto;background-image: url(http://cunchu.site/people/templateCreat/module/editer-bg.png);'></div><p [[0]]>{{0}}</p></div>",
+          template: "<div style='background-color: white;width: 705px;margin: 0 auto;border-radius: 20px;padding: 10px 0;'><div class='editer-title' style='width: 576px;height: 48px;display: block;margin: 30px auto;background-image: url(@|editer-bg.png|);'></div><p [[0]]>{{0}}</p></div>",
           styleData: [`
             font-size: 28px;
             line-height: 1.6;
@@ -79,7 +79,7 @@
           name: "标题",
           template: '<div [[0]]>{{0}}</div>',
           styleData: [`
-            background-image: url(http://cunchu.site/people/templateCreat/module/title-bg.png);
+            background-image: url(@|title-bg.png|);
             width: 509px;
             height: 108px;
             font-size: 40px;
@@ -100,14 +100,14 @@
             display: block;
             margin: 0 auto;
           `],
-          edit: ['https://cunchu.site/upload/063742039f975378.jpeg']
+          edit: ['@|063742039f975378.jpg|']
         },
         shuoming: {
           name: '图片说明',
           template: '<div style="background-image: url(@|card-bg.jpg|);font-size: 22px;line-height: 60px;height: 60px;overflow: hidden;width: 94%;margin: 0 auto;color: #222;"><div [[0]]>{{0}}</div></div>',
           styleData: [`
             width: 575px;
-            background-image: url(https://cunchu.site/upload/96cac50f7668fdca.png);
+            background-image: url(@|doit.jpg|);
             background-repeat: no-repeat;
             background-position: 30px center;
             padding: 0 65px;
@@ -126,7 +126,7 @@
             margin: 0 auto;
             text-indent: 50px;
             padding-bottom: 10px;
-            background-image: url(https://cunchu.site/upload/b1d8aa53104b4405.jpeg);
+            background-image: url(@|b1d8aa53104b4405.jpg|);
           `],
           edit: ['标题内容']
         },
@@ -142,7 +142,7 @@
             margin: 0 auto;
             text-indent: 50px;
             padding-bottom: 10px;
-            background-image: url(https://cunchu.site/upload/b1d8aa53104b4405.jpeg);
+            background-image: url(@|b1d8aa53104b4405.jpg|);
             font-weight: normal;
           `],
           edit: ['标题内容']
@@ -159,7 +159,7 @@
             margin: 0 auto;
             margin-bottom: 10px;
             text-indent: 50px;
-            background-image: url(https://cunchu.site/upload/b1d8aa53104b4405.jpeg);
+            background-image: url(@|b1d8aa53104b4405.jpg|);
             padding-bottom: 10px;
           `],
           edit: ['我们展现了中阿携手战胜疫情的坚强决心。我们将继续加强疫情防控、疫苗研发合作，捍卫多边主义，支持世界卫生组织发挥关键作用，反对将病毒标签化、疫情政治化，共同为赢得全球抗疫胜利作出贡献。']
@@ -170,7 +170,7 @@
           styleData: [`
             width: 705px;
             margin: 0 auto;
-            background-image: url(https://cunchu.site/upload/b1d8aa53104b4405.jpeg);
+            background-image: url(@|b1d8aa53104b4405.jpg|);
           `,`
             background-image: url(@|line.png|);
             height: 80px;
