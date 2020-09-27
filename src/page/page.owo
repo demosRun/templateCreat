@@ -157,15 +157,14 @@
             width: 675px;
             padding: 0 15px;
             margin: 0 auto;
-            margin-bottom: 10px;
             text-indent: 50px;
             background-image: url(@|b1d8aa53104b4405.jpg|);
             padding-bottom: 10px;
           `],
           edit: ['我们展现了中阿携手战胜疫情的坚强决心。我们将继续加强疫情防控、疫苗研发合作，捍卫多边主义，支持世界卫生组织发挥关键作用，反对将病毒标签化、疫情政治化，共同为赢得全球抗疫胜利作出贡献。']
         },
-        cardp: {
-          name: 'line',
+        line: {
+          name: '装饰线',
           template: '<div [[0]]><div [[1]]></div></div>',
           styleData: [`
             width: 705px;
@@ -270,15 +269,16 @@
       const index2 = parseInt(this.getAttribute('ind'))
       owo.script.page.data.activeIndex1 = index1
       owo.script.page.data.activeIndex2 = index2
-      const styleData = owo.script.page.data.showList[index1].styleData[index2]
+      let styleData = owo.script.page.data.showList[index1].styleData[index2]
       console.log(styleData)
-      owo.query('#styleEdit')[0].innerText = JSON.stringify(styleData)
+      styleData = styleData.replace(/  /g, '')
+      owo.query('#styleEdit')[0].innerText = styleData
       owo.query('#htmlEdit')[0].innerText = JSON.stringify(owo.script.page.data.showList[index1].edit)
     },
     reMake: function () {
       const newStyleData = owo.query('#styleEdit')[0].value
       const newHtmlData = owo.query('#htmlEdit')[0].value
-      owo.script.page.data.showList[this.data.activeIndex1].styleData[this.data.activeIndex2] = JSON.parse(newStyleData)
+      owo.script.page.data.showList[this.data.activeIndex1].styleData[this.data.activeIndex2] = newStyleData
       owo.script.page.data.showList[this.data.activeIndex1].edit = JSON.parse(newHtmlData)
       // console.log(owo.script.page.data.showList)
       this.outPutShow()

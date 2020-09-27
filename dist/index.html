@@ -92,7 +92,13 @@ owo.script = {
           "edit": ["标题内容"]
         },
         "cardp": {
-          "name": "line",
+          "name": "卡片里的文字",
+          "template": "<p [[0]]>{{0}}</p>",
+          "styleData": ["            font-size: 24px;            line-height: 1.5;            color: #1c1c1c;            width: 675px;            padding: 0 15px;            margin: 0 auto;            text-indent: 50px;            background-image: url(https://cunchu.site/upload/b1d8aa53104b4405.jpeg);            padding-bottom: 10px;          "],
+          "edit": ["我们展现了中阿携手战胜疫情的坚强决心。我们将继续加强疫情防控、疫苗研发合作，捍卫多边主义，支持世界卫生组织发挥关键作用，反对将病毒标签化、疫情政治化，共同为赢得全球抗疫胜利作出贡献。"]
+        },
+        "line": {
+          "name": "装饰线",
           "template": "<div [[0]]><div [[1]]></div></div>",
           "styleData": ["            width: 705px;            margin: 0 auto;            background-image: url(./static/resource/b1d8aa53104b4405.jpg);          ", "            background-image: url(./static/resource/line.png);            height: 80px;            background-repeat: no-repeat;            background-position: center;          "],
           "edit": [""]
@@ -202,13 +208,14 @@ owo.script = {
       owo.script.page.data.activeIndex2 = index2;
       var styleData = owo.script.page.data.showList[index1].styleData[index2];
       console.log(styleData);
-      owo.query('#styleEdit')[0].innerText = JSON.stringify(styleData);
+      styleData = styleData.replace(/  /g, '');
+      owo.query('#styleEdit')[0].innerText = styleData;
       owo.query('#htmlEdit')[0].innerText = JSON.stringify(owo.script.page.data.showList[index1].edit);
     },
     "reMake": function reMake() {
       var newStyleData = owo.query('#styleEdit')[0].value;
       var newHtmlData = owo.query('#htmlEdit')[0].value;
-      owo.script.page.data.showList[this.data.activeIndex1].styleData[this.data.activeIndex2] = JSON.parse(newStyleData);
+      owo.script.page.data.showList[this.data.activeIndex1].styleData[this.data.activeIndex2] = newStyleData;
       owo.script.page.data.showList[this.data.activeIndex1].edit = JSON.parse(newHtmlData); // console.log(owo.script.page.data.showList)
 
       this.outPutShow();
